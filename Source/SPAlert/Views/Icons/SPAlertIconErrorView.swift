@@ -1,5 +1,5 @@
 // The MIT License (MIT)
-// Copyright © 2019 Ivan Vorobei (hello@ivanvorobei.by)
+// Copyright © 2019 Ivan Vorobei (ivanvorobei@icloud.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,22 @@
 
 import UIKit
 
-public class SPAlertIconDoneView: UIView, SPAlertIconAnimatable {
+public class SPAlertIconErrorView: UIView, SPAlertIconAnimatable {
 
     public func animate() {
+        animateTopToBottomLine()
+        animateBottomToTopLine()
+    }
         
+    private func animateTopToBottomLine() {
         let length = frame.width
-        let animatablePath = UIBezierPath()
-        animatablePath.move(to: CGPoint(x: length * 0.196, y: length * 0.527))
-        animatablePath.addLine(to: CGPoint(x: length * 0.47, y: length * 0.777))
-        animatablePath.addLine(to: CGPoint(x: length * 0.99, y: length * 0.25))
+        
+        let topToBottomLine = UIBezierPath()
+        topToBottomLine.move(to: CGPoint(x: length * 0, y: length * 0))
+        topToBottomLine.addLine(to: CGPoint(x: length * 1, y: length * 1))
         
         let animatableLayer = CAShapeLayer()
-        animatableLayer.path = animatablePath.cgPath
+        animatableLayer.path = topToBottomLine.cgPath
         animatableLayer.fillColor = UIColor.clear.cgColor
         animatableLayer.strokeColor = tintColor?.cgColor
         animatableLayer.lineWidth = 9
@@ -42,10 +46,38 @@ public class SPAlertIconDoneView: UIView, SPAlertIconAnimatable {
         self.layer.addSublayer(animatableLayer)
         
         let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.duration = 0.3
+        animation.duration = 0.22
         animation.fromValue = 0
         animation.toValue = 1
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        
+        animatableLayer.strokeEnd = 1
+        animatableLayer.add(animation, forKey: "animation")
+    }
+        
+    private func animateBottomToTopLine() {
+        let length = frame.width
+        
+        let bottomToTopLine = UIBezierPath()
+        bottomToTopLine.move(to: CGPoint(x: length * 0, y: length * 1))
+        bottomToTopLine.addLine(to: CGPoint(x: length * 1, y: length * 0))
+        
+        let animatableLayer = CAShapeLayer()
+        animatableLayer.path = bottomToTopLine.cgPath
+        animatableLayer.fillColor = UIColor.clear.cgColor
+        animatableLayer.strokeColor = tintColor?.cgColor
+        animatableLayer.lineWidth = 9
+        animatableLayer.lineCap = .round
+        animatableLayer.lineJoin = .round
+        animatableLayer.strokeEnd = 0
+        self.layer.addSublayer(animatableLayer)
+        
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.duration = 0.22
+        animation.fromValue = 0
+        animation.toValue = 1
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        
         animatableLayer.strokeEnd = 1
         animatableLayer.add(animation, forKey: "animation")
     }

@@ -1,5 +1,5 @@
 // The MIT License (MIT)
-// Copyright © 2019 Ivan Vorobei (hello@ivanvorobei.by)
+// Copyright © 2019 Ivan Vorobei (ivanvorobei@icloud.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,18 +21,33 @@
 
 import UIKit
 
-public enum SPAlertHaptic {
-
-    case success
-    case none
+/**
+ Layout for alert. Basic width is `250`. Height calculate automatically.
+ */
+public struct SPAlertLayout {
     
-    func impact() {
-        switch self {
-        case .success:
-            let generator = UINotificationFeedbackGenerator()
-            generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
-        default:
-            break
-        }
-    }
+    /**
+     Top space from icon to top area,
+     */
+    public var topSpace: CGFloat = 43
+    
+    /**
+     Bottom space from titles to bottom area.
+     */
+    public var bottomSpace: CGFloat = 25
+    
+    /**
+     Icon view width.
+     */
+    public var iconWidth: CGFloat = 100
+    
+    /**
+     Icon view height.
+     */
+    public var iconHeight: CGFloat = 100
+    
+    /**
+     Bottom space from icon to titles.
+     */
+    public var bottomIconSpace: CGFloat = 41
 }
